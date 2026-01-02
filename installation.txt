@@ -1,0 +1,19 @@
+DATABASE INSTALLATION GUIDE
+
+
+
+Run the Installer
+   - Open your web browser.
+   - Go to the following URL:
+     http://localhost/survery_system/database_create.php
+
+What Happens
+   - The script will automatically create the database `survey_db` if it doesn't exist.
+   - It will create all required tables.
+   - It will create a default admin user.
+     - Username: admin
+     - Password: admin123
+Verification
+   - After the script runs, you will see a success message.
+   - You can then log in at `login.php` with the credentials above.
+
