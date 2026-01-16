@@ -6,7 +6,6 @@ requireLogin();
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 // Check ownership logic if needed, simplified here
-
 $stmt = $pdo->prepare("SELECT * FROM surveys WHERE id = ?");
 $stmt->execute([$id]);
 $survey = $stmt->fetch();
@@ -33,7 +32,7 @@ $responses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Output headers
 header('Content-Type: text/csv');
-header('Content-Disposition: attachment; filename="survey_export_' . $id . '_' . date('Y-m-d') . '.csv"');
+header('Content-Disposition: attachment; filename="survey_results_' . $id . '.csv"');
 
 $output = fopen('php://output', 'w');
 fputcsv($output, $csv_headers);

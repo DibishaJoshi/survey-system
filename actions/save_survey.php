@@ -17,9 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->beginTransaction();
 
         $collect_email = isset($_POST['collect_email']) ? 1 : 0;
+        $hash_id = bin2hex(random_bytes(8));
 
-        $stmt = $pdo->prepare("INSERT INTO surveys (title, description, type, embed_code, limit_one, allow_edit, collect_email) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->execute([$title, $description, $type, $embed_code, $limit_one, $allow_edit, $collect_email]);
+        $stmt = $pdo->prepare("INSERT INTO surveys (title, description, type, embed_code, limit_one, allow_edit, collect_email, hash_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$title, $description, $type, $embed_code, $limit_one, $allow_edit, $collect_email, $hash_id]);
         $survey_id = $pdo->lastInsertId();
 
         if ($type === 'custom' && isset($_POST['questions'])) {

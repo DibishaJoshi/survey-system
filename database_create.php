@@ -32,6 +32,7 @@ $sql_users = "CREATE TABLE IF NOT EXISTS users (
 
 $sql_surveys = "CREATE TABLE IF NOT EXISTS surveys (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    hash_id VARCHAR(32) UNIQUE DEFAULT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     type ENUM('custom', 'embed') NOT NULL DEFAULT 'custom',
@@ -107,6 +108,7 @@ function addColumn($pdo, $table, $column, $definition) {
 }
 
 addColumn($pdo, 'surveys', 'collect_email', 'TINYINT(1) DEFAULT 0');
+addColumn($pdo, 'surveys', 'hash_id', 'VARCHAR(32) UNIQUE DEFAULT NULL');
 addColumn($pdo, 'surveys', 'limit_one', 'TINYINT(1) DEFAULT 0');
 addColumn($pdo, 'surveys', 'allow_edit', 'TINYINT(1) DEFAULT 0');
 addColumn($pdo, 'questions', 'is_required', 'TINYINT(1) DEFAULT 0');

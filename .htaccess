@@ -1,0 +1,16 @@
+RewriteEngine On
+RewriteBase /survery_system/
+Options -MultiViews
+
+# New Route: /form/{hash} -> view_survey.php?hash={hash}
+RewriteRule ^form/(.*)$ view_survey.php?hash=$1 [L,QSA]
+
+# Alternate Route (shorter): /s/{hash}
+RewriteRule ^s/(.*)$ view_survey.php?hash=$1 [L,QSA]
+
+# Fix for assets (if clean URLs break relative paths)
+# Actually, assets are absolute or relative? 
+# If page is at /survery_system/form/abc, then "assets/style.css" becomes /survery_system/form/assets/style.css (Wrong)
+# We need to make sure asset links are absolute or handled.
+
+RewriteRule ^test-rewrite$ rewrite_test.php [L]

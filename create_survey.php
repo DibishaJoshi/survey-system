@@ -5,6 +5,31 @@ require 'includes/header.php';
 
 <div class="mb-4">
     <h1>Create New Survey</h1>
+    <p class="text-muted">Start from scratch or choose a template.</p>
+</div>
+
+<!-- Template Selection -->
+<div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-bottom: 2rem;">
+    <div class="template-card" onclick="applyTemplate('blank')">
+        <div class="template-icon"><i class="fas fa-file"></i></div>
+        <div class="template-title">Blank</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Start from scratch</div>
+    </div>
+    <div class="template-card" onclick="applyTemplate('customer_satisfaction')">
+        <div class="template-icon"><i class="fas fa-smile"></i></div>
+        <div class="template-title">Customer Satisfaction</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Feedback on service</div>
+    </div>
+    <div class="template-card" onclick="applyTemplate('event_feedback')">
+        <div class="template-icon"><i class="fas fa-calendar-check"></i></div>
+        <div class="template-title">Event Feedback</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Post-event survey</div>
+    </div>
+    <div class="template-card" onclick="applyTemplate('employee_engagement')">
+        <div class="template-icon"><i class="fas fa-users"></i></div>
+        <div class="template-title">Employee Engagement</div>
+        <div style="font-size: 0.8rem; color: var(--text-muted);">Internal company survey</div>
+    </div>
 </div>
 
 <div class="card">
@@ -111,5 +136,16 @@ require 'includes/header.php';
 </template>
 
 <script src="assets/script.js?v=<?php echo time(); ?>"></script>
+<script>
+    // Check for template param in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const templateParam = urlParams.get('template');
+    if (templateParam && typeof applyTemplate === 'function') {
+        // Wait a small tick to ensure DOM is ready
+        setTimeout(() => {
+            applyTemplate(templateParam);
+        }, 100);
+    }
+</script>
 </body>
 </html>

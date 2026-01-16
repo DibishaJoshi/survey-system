@@ -28,6 +28,7 @@ try {
     // Table: surveys
     $sql_surveys = "CREATE TABLE IF NOT EXISTS surveys (
         id INT AUTO_INCREMENT PRIMARY KEY,
+        hash_id VARCHAR(32) UNIQUE DEFAULT NULL,
         title VARCHAR(255) NOT NULL,
         description TEXT,
         type ENUM('custom', 'embed') NOT NULL DEFAULT 'custom',

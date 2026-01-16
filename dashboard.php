@@ -42,79 +42,118 @@ $stmt->execute($params);
 $surveys = $stmt->fetchAll();
 ?>
 
-<div class="mb-4" style="margin-bottom: 2rem;">
-    <h1>Dashboard</h1>
-    <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 2rem;">
-        <div class="card" style="background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%); color: white;">
-            <h3>Total Surveys</h3>
-            <p style="font-size: 2.5rem; font-weight: 700; margin: 0;"><?php echo $totalSurveys; ?></p>
-        </div>
-        <div class="card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
-            <h3>Total Responses</h3>
-            <p style="font-size: 2.5rem; font-weight: 700; margin: 0;"><?php echo $totalResponses; ?></p>
+
+<!-- Google Forms Style Dashboard -->
+</div> <!-- Close container from header.php -->
+
+<!-- Template Header -->
+<div class="dashboard-header">
+    <div class="container">
+        <h3 class="mb-4" style="color: #202124; font-weight: 400; margin-bottom: 1rem;">Start a new form</h3>
+        <div class="template-gallery">
+            <!-- Blank -->
+            <a href="create_survey.php?template=blank" class="template-item" style="text-decoration: none;">
+                <div class="template-preview blank">
+                    <i class="fas fa-plus" style="font-size: 2rem; color: var(--primary);"></i>
+                </div>
+                <div class="template-name">Blank</div>
+            </a>
+            
+            <!-- Customer Satisfaction -->
+            <a href="create_survey.php?template=customer_satisfaction" class="template-item" style="text-decoration: none;">
+                <div class="template-preview customer">
+                    <i class="fas fa-smile"></i>
+                </div>
+                <div class="template-name">Customer Satisfaction</div>
+            </a>
+            
+            <!-- Event Feedback -->
+            <a href="create_survey.php?template=event_feedback" class="template-item" style="text-decoration: none;">
+                <div class="template-preview event">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="template-name">Event Feedback</div>
+            </a>
+            
+            <!-- Employee Engagement -->
+            <a href="create_survey.php?template=employee_engagement" class="template-item" style="text-decoration: none;">
+                <div class="template-preview employee">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="template-name">Employee Engagement</div>
+            </a>
         </div>
     </div>
 </div>
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem;">
-    <h2>Your Surveys</h2>
-    
-    <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
-        <form method="GET" action="" style="display: flex; gap: 0.5rem;">
-            <div style="position: relative;">
-                <input type="text" name="search" placeholder="Search surveys..." value="<?php echo htmlspecialchars($search); ?>" 
-                       style="padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); padding-left: 2rem;">
+<!-- Main Content -->
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="color: #202124; font-weight: 400;">Recent forms</h3>
+        
+        <!-- Search and Sort (Simplified) -->
+        <form method="GET" action="" style="display: flex; gap: 0.5rem; align-items: center;">
+             <div style="position: relative;">
+                <input type="text" name="search" placeholder="Search..." value="<?php echo htmlspecialchars($search); ?>" 
+                       style="padding: 0.5rem 0.75rem; border: none; background: #f1f3f4; border-radius: var(--radius); padding-left: 2rem; width: 200px;">
                 <i class="fas fa-search" style="position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
             </div>
-            
             <select name="sort" onchange="this.form.submit()" 
-                    style="padding: 0.5rem 2rem 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); background-color: white; cursor: pointer;">
-                <option value="newest" <?php echo $sort === 'newest' ? 'selected' : ''; ?>>Newest First</option>
-                <option value="oldest" <?php echo $sort === 'oldest' ? 'selected' : ''; ?>>Oldest First</option>
-                <option value="az" <?php echo $sort === 'az' ? 'selected' : ''; ?>>Title (A-Z)</option>
-                <option value="za" <?php echo $sort === 'za' ? 'selected' : ''; ?>>Title (Z-A)</option>
+                    style="padding: 0.5rem; border: none; background: transparent; cursor: pointer; color: var(--text-muted); font-weight: 500;">
+                <option value="newest" <?php echo $sort === 'newest' ? 'selected' : ''; ?>>Last opened by me</option>
+                <option value="az" <?php echo $sort === 'az' ? 'selected' : ''; ?>>A-Z</option>
             </select>
         </form>
-        
-        <a href="create_survey.php" class="btn btn-primary"><i class="fas fa-plus" style="margin-right: 0.5rem;"></i> Create New</a>
     </div>
-</div>
 
-<div class="grid">
-    <?php foreach ($surveys as $survey): ?>
-        <div class="survey-card">
-            <div class="survey-header">
-                <h3 style="margin: 0; font-size: 1.125rem;"><?php echo htmlspecialchars($survey['title']); ?></h3>
-                <span style="font-size: 0.75rem; color: var(--text-muted);">Created: <?php echo date('M j, Y', strtotime($survey['created_at'])); ?></span>
-            </div>
-            <div class="survey-body">
-                <p style="color: var(--text-muted); font-size: 0.875rem; margin: 0;">
-                    <?php echo $survey['description'] ? htmlspecialchars(substr($survey['description'], 0, 100)) . '...' : 'No description'; ?>
-                </p>
-                <div style="margin-top: 1rem;">
-                    <span style="background: #e2e8f0; padding: 0.25rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">
-                        <?php echo $survey['type']; ?>
-                    </span>
+    <!-- Forms Grid -->
+    <div class="form-grid">
+        <?php foreach ($surveys as $survey): ?>
+            <div class="form-card">
+                <!-- Clickable Area (Goes to Results by default, better for admin) -->
+                <a href="survey_view.php?id=<?php echo $survey['id']; ?>" class="form-preview-link" style="text-decoration: none;">
+                    <div class="form-preview">
+                        <i class="fas fa-file-alt" style="color: #7248b9; opacity: 0.5;"></i>
+                    </div>
+                </a>
+                
+                <div class="form-info">
+                    <div class="form-title" title="<?php echo htmlspecialchars($survey['title']); ?>">
+                        <?php echo htmlspecialchars($survey['title']); ?>
+                    </div>
+                    <div class="form-meta">
+                        <span class="form-icon"></span>
+                        <span>Opened <?php echo date('M j, Y', strtotime($survey['created_at'])); ?></span>
+                    </div>
+                </div>
+
+                <!-- Footer Actions (Visible) -->
+                <div class="form-footer-actions">
+                    <div class="action-group">
+                         <a href="edit_survey.php?id=<?php echo $survey['id']; ?>" class="action-btn" title="Edit Survey"><i class="fas fa-edit"></i></a>
+                         <a href="view_survey.php?id=<?php echo $survey['id']; ?>" target="_blank" class="action-btn" title="Preview Form"><i class="fas fa-eye"></i></a>
+                         <button onclick="copyLink('<?php echo $survey['hash_id'] ?? ''; ?>', <?php echo $survey['id']; ?>)" class="action-btn" title="Copy Link"><i class="fas fa-share-alt"></i></button>
+                         <a href="survey_view.php?id=<?php echo $survey['id']; ?>" class="action-btn" title="View Results"><i class="fas fa-chart-bar"></i></a>
+                    </div>
+
+                    <!-- Dropdown for secondary actions -->
+                    <div class="dropdown">
+                        <button class="action-btn" title="More Options"><i class="fas fa-ellipsis-v"></i></button>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="copyLink('<?php echo $survey['hash_id'] ?? ''; ?>', <?php echo $survey['id']; ?>); return false;" class="dropdown-item"><i class="fas fa-link" style="margin-right: 8px; width: 16px;"></i> Get pre-filled link</a>
+                            <a href="#" onclick="deleteSurvey(<?php echo $survey['id']; ?>); return false;" class="dropdown-item danger"><i class="fas fa-trash-alt" style="margin-right: 8px; width: 16px;"></i> Remove</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="survey-footer">
-                <div>
-                    <a href="edit_survey.php?id=<?php echo $survey['id']; ?>" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);"><i class="fas fa-edit"></i> Edit</a>
-                    <a href="view_survey.php?id=<?php echo $survey['id']; ?>" target="_blank" class="btn" style="color: var(--primary); padding-left: 0;">Preview</a>
-                    <a href="survey_view.php?id=<?php echo $survey['id']; ?>" class="btn" style="color: var(--text-main);">Results</a>
-                </div>
-                <button onclick="deleteSurvey(<?php echo $survey['id']; ?>)" class="btn" style="color: var(--danger);">Delete</button>
+        <?php endforeach; ?>
+        
+        <?php if (count($surveys) === 0): ?>
+            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-muted);">
+                <p>No forms yet. Click a template above to start.</p>
             </div>
-        </div>
-    <?php endforeach; ?>
-    
-    <?php if (count($surveys) === 0): ?>
-        <div style="grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-muted); background: white; border-radius: var(--radius); border: 1px dashed var(--border);">
-            <i class="fas fa-clipboard-list" style="font-size: 3rem; margin-bottom: 1rem; color: #cbd5e1;"></i>
-            <p>No surveys created yet.</p>
-            <a href="create_survey.php" class="btn btn-primary" style="margin-top: 1rem;">Create your first survey</a>
-        </div>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
 </div>
 
 <script>
@@ -124,18 +163,23 @@ function deleteSurvey(id) {
     }
 }
 
-function copyLink(id) {
+function copyLink(hash, id) {
     // Construct absolute URL
-    // Assuming the folder structure is /survery_system/ based on previous context
-    // Ideally we would use a JS variable passed from PHP, but this works for the specific setup
     const path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
-    const url = window.location.origin + path + '/view_survey.php?id=' + id;
+    
+    let url;
+    if (hash && hash.trim() !== '') {
+         // Use new clean format
+         url = window.location.origin + path + '/form/' + hash;
+    } else {
+         // Fallback to legacy ID format
+         url = window.location.origin + path + '/view_survey.php?id=' + id;
+    }
     
     if (navigator.clipboard) {
         navigator.clipboard.writeText(url).then(() => {
-            alert('Survey link copied to clipboard!');
+            alert('Survey link copied to clipboard: ' + url);
         }).catch(err => {
-            console.error('Failed to copy: ', err);
             prompt("Copy this link:", url);
         });
     } else {

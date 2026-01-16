@@ -71,3 +71,72 @@ function toggleOptions(select) {
         optionsContainer.querySelector('input').required = false;
     }
 }
+
+// Template Definitions
+const templates = {
+    'blank': {
+        title: '',
+        description: '',
+        questions: []
+    },
+    'customer_satisfaction': {
+        title: 'Customer Satisfaction Survey',
+        description: 'Please help us improve our services by providing your feedback.',
+        questions: [
+            { text: 'How satisfied are you with our service?', type: 'multiple_choice', options: 'Very Satisfied, Satisfied, Neutral, Dissatisfied' },
+            { text: 'How likely are you to recommend us?', type: 'multiple_choice', options: 'Very Likely, Likely, Unlikely, Very Unlikely' },
+            { text: 'What did we do well?', type: 'paragraph', options: '' },
+            { text: 'What can we improve?', type: 'paragraph', options: '' }
+        ]
+    },
+    'event_feedback': {
+        title: 'Event Feedback Form',
+        description: 'Thank you for attending. We would love to hear your thoughts.',
+        questions: [
+            { text: 'How would you rate the event overall?', type: 'multiple_choice', options: 'Excellent, Good, Average, Poor' },
+            { text: 'Which sessions did you attend?', type: 'checkbox', options: 'Keynote, Workshop A, Workshop B, Networking' },
+            { text: 'Any suggestions for future events?', type: 'paragraph', options: '' }
+        ]
+    },
+    'employee_engagement': {
+        title: 'Employee Engagement Survey',
+        description: 'We value your input. Responses are anonymous.',
+        questions: [
+            { text: 'I feel valued at work.', type: 'multiple_choice', options: 'Strongly Agree, Agree, Neutral, Disagree, Strongly Disagree' },
+            { text: 'I have the resources I need to do my job.', type: 'multiple_choice', options: 'Yes, No' },
+            { text: 'What motivates you the most?', type: 'short_answer', options: '' }
+        ]
+    }
+};
+
+function applyTemplate(type) {
+    if (document.getElementById('title').value !== '' && !confirm('This will overwrite your current survey. Continue?')) {
+        return;
+    }
+
+    const data = templates[type];
+    
+    document.getElementById('title').value = data.title;
+    document.getElementById('description').value = data.description;
+    
+    document.getElementById('questionsContainer').innerHTML = '';
+    
+    if (data.questions.length === 0) {
+        addQuestion();
+    } else {
+        data.questions.forEach(q => {
+            addQuestion();
+            const items = document.querySelectorAll('.question-item');
+            const lastItem = items[items.length - 1];
+            
+            lastItem.querySelector('input[name*="[text]"]').value = q.text;
+            const typeSelect = lastItem.querySelector('select[name*="[type]"]');
+            typeSelect.value = q.type;
+            toggleOptions(typeSelect);
+            if (q.options) {
+                lastItem.querySelector('input[name*="[options]"]').value = q.options;
+            }
+        });
+    }
+    document.getElementById('createSurveyForm').scrollIntoView({ behavior: 'smooth' });
+}

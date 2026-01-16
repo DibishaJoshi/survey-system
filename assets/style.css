@@ -26,7 +26,9 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0rem;
 }
 
 .card {
@@ -217,4 +219,534 @@ h2 { font-size: 1.5rem; }
 .survey-embed-wrapper iframe {
     border: 0;
     max-width: 100%;
+}
+/* Google Forms Style Enhancements */
+
+/* Tabs */
+.tabs-nav {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+    background: white;
+    margin-bottom: 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tab-link {
+    padding: 1rem 2rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-muted);
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.tab-link:hover {
+    background-color: #f1f5f9;
+}
+
+.tab-link.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Google-like Cards */
+.card-google {
+    background: white;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 12px;
+    position: relative;
+    transition: box-shadow 0.2s;
+}
+
+.card-google:hover {
+    box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+}
+
+.card-google-top {
+    border-top: 10px solid var(--primary);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.question-text-google {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 1rem;
+}
+
+.answer-google {
+    font-size: 1rem;
+    color: #3c4043;
+    line-height: 1.5;
+}
+
+/* Template Cards */
+.template-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    text-align: center;
+    height: 100%;
+}
+
+.template-card:hover {
+    border-color: var(--primary);
+    background-color: #eff6ff;
+    transform: translateY(-2px);
+}
+
+.template-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.template-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+/* Dashboard Styles */
+.dashboard-header {
+    background: linear-gradient(to bottom, #f8fafc, #edf2f7); /* Soft gradient */
+    padding: 1rem 0 2rem;
+    padding-top: 0rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.template-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Slightly wider */
+    gap: 1.5rem;
+}
+
+.template-item {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.template-item:hover {
+    transform: translateY(-4px); /* Higher lift */
+}
+
+.template-preview {
+    background: white;
+    border: none; /* Removed border */
+    border-radius: 12px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow instead */
+    transition: box-shadow 0.2s;
+}
+
+.template-preview:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Specific template colors/icons */
+.template-preview.blank { background: linear-gradient(135deg, white, #f1f5f9); }
+.template-preview.customer { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
+.template-preview.event { background: linear-gradient(135deg, #dcfce7, #86efac); }
+.template-preview.employee { background: linear-gradient(135deg, #f3e8ff, #d8b4fe); }
+
+.template-preview i {
+    font-size: 2.5rem;
+    color: rgba(255,255,255,0.8); /* White overlay hint */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Override icons for better visibility on color backgrounds */
+.template-preview.blank i { color: #cbd5e1; }
+.template-preview.customer i { color: #0284c7; opacity: 0.5; }
+.template-preview.event i { color: #16a34a; opacity: 0.5; }
+.template-preview.employee i { color: #9333ea; opacity: 0.5; }
+
+.template-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #334155;
+}
+
+/* Form Cards (Grid View) */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-card {
+    background: white;
+    border: none; /* No border for cleaner look */
+    border-radius: 12px;
+    transition: all 0.2s;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.form-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Deep shadow */
+    transform: translateY(-2px);
+}
+
+.form-preview {
+    height: 140px; /* Taller */
+    background: #f8fafc;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-preview i {
+    font-size: 3.5rem;
+    color: #e2e8f0;
+}
+
+.form-info {
+    padding: 1.25rem;
+    flex-grow: 1;
+}
+
+.form-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #1e293b;
+}
+
+/* Search Bar Modernization */
+/* This targets the specific inline style element in dashboard.php, 
+   but we can add a class helper if we edit dashboard.php too. 
+   For now, styling standard inputs more heavily. */
+
+input[name="search"] {
+    border-radius: 9999px !important; /* Pill shape */
+    padding-left: 2.5rem !important;
+    background: white !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border) !important;
+    transition: all 0.2s;
+}
+
+input[name="search"]:focus {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    border-color: var(--primary) !important;
+}
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    bottom: 100%; /* Show above button to avoid overflow hidden issues if card is small? Actually no, let's keep standard but ensure z-index */
+    background-color: white;
+    min-width: 180px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 8px;
+    z-index: 1000;
+    border: 1px solid var(--border);
+    padding: 0.5rem 0;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
+    color: var(--text-main);
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.875rem;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f5f9;
+}
+
+.dropdown-item.danger {
+    color: var(--danger);
+}
+
+.dropdown-item.danger:hover {
+    background-color: #fef2f2;
+}
+
+/* Footer Actions Cleanup */
+.form-footer-actions {
+    margin-top: auto; /* Push to bottom */
+    padding: 0 1.25rem 1.25rem; /* Match info padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-footer-actions .action-group {
+    display: flex;
+    gap: 0.25rem;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px; /* Squarish rounded */
+    color: var(--text-muted);
+    transition: all 0.2s;
+    text-decoration: none;
+    border: none; /* Ensure button reset */
+    background: transparent;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background-color: #f1f5f9;
+    color: var(--primary);
+}
+
+.action-btn i {
+    font-size: 1rem;
+}
+
+/* Respondent View (Modern Professional) */
+.respondent-body {
+    background-color: var(--bg-color); /* Use system background */
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    background-image: linear-gradient(to bottom, #eef2ff 0%, #f8fafc 100%); /* Subtle indigo tint */
+}
+
+.survey-container {
+    max-width: 720px; /* Slightly wider */
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.survey-header-card {
+    background: white;
+    border-radius: 12px; /* Softer radius */
+    border: none;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Soft deep shadow */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Colored accent bar on left instead of top */
+.survey-header-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: var(--primary);
+}
+
+.survey-title-large {
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: tight;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    font-family: 'Inter', sans-serif; /* Back to system font */
+}
+
+.question-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+}
+
+.question-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
+}
+
+.question-text-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    display: block;
+}
+
+.required-star {
+    color: var(--danger);
+    margin-left: 4px;
+    font-size: 0.9em;
+}
+
+/* Modern Input Styling */
+.form-control-google {
+    border: 1px solid var(--border); /* Full border */
+    background: white;
+    border-radius: 8px; /* Rounded */
+    padding: 12px 16px; 
+    width: 100%;
+    font-size: 1rem;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.form-control-google:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); /* Indigo ring */
+}
+
+/* Radio/Checkbox custom styling */
+.option-label {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-main);
+    border-radius: 6px;
+    transition: background 0.1s;
+}
+
+.option-label:hover {
+    background-color: #f1f5f9;
+}
+
+.option-label input {
+    margin-right: 12px;
+    accent-color: var(--primary);
+    width: 1.1em;
+    height: 1.1em;
+}
+
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Navigation Stack */
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .nav-links {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+    
+    .nav-links a {
+        margin-left: 0;
+    }
+
+    /* Dashboard Header Stack (Search/Sort) */
+    .container > div[style*="justify-content: space-between"] {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 1rem;
+    }
+    
+    /* Ensure search input takes full width on mobile if stacked */
+    input[name="search"] {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    
+    /* Make the Form Actions (View/edit/etc) easier to tap */
+    .form-footer-actions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    /* Create/Edit Survey: Details & Settings Stack */
+    /* Target the specific flex container for checkboxes */
+    div[style*="display: flex; gap: 1.5rem; margin-top: 0.5rem;"] {
+        flex-direction: column;
+        gap: 0.75rem !important;
+        align-items: flex-start !important;
+    }
+
+    /* Survey View Results Header */
+    /* The header with title and Export button */
+    .mb-4 > div[style*="display: flex; justify-content: space-between"] {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .mb-4 > div > div:last-child {
+        width: 100%;
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .mb-4 > div > div:last-child .btn {
+        flex: 1;
+    }
+
+    /* Adjust Survey Container for mobile */
+    .survey-container {
+        padding: 0 1rem;
+    }
+    
+    .survey-header-card {
+        padding: 1.5rem;
+    }
+    
+    .survey-title-large {
+        font-size: 1.5rem;
+    }
 }
