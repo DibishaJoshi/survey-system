@@ -3,8 +3,8 @@ require 'config.php';
 
 try {
     // Create database if not exists
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS survey_db");
-    $pdo->exec("USE survey_db");
+    $pdo->exec("CREATE DATABASE IF NOT EXISTS $dbname");
+    $pdo->exec("USE $dbname");
 
     // Table: users
     $sql_users = "CREATE TABLE IF NOT EXISTS users (
@@ -77,7 +77,8 @@ try {
 
     echo "Database setup completed successfully.";
 
-} catch (PDOException $e) {
+}
+catch (PDOException $e) {
     die("DB Setup Error: " . $e->getMessage());
 }
 ?>
