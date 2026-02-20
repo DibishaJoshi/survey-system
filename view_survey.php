@@ -153,12 +153,12 @@ if ($edit_mode) {
     <style>
         * { box-sizing: border-box; }
         body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #e2e1e4ff;
+            font-family: 'Roboto', sans-serif; 
+            background-color: #f0ebf8;
             min-height: 100vh;
             padding: 3rem 1.5rem;
             margin: 0;
-            color: #1a1a1b;
+            color: #202124;
             font-size: 1.125rem; /* Clean large base */
             line-height: 1.6;
         }
@@ -184,14 +184,14 @@ if ($edit_mode) {
         
         .survey-title {
             font-size: 2.25rem;
-            font-weight: 600;
-            color: #111827;
+            font-weight: 420;
+            color: #202124;
             margin: 0 0 1rem 0;
             line-height: 1.2;
         }
         
         .survey-description {
-            font-size: 1.35rem; /* Massive description */
+            font-size: 1.02rem; /* Massive description */
             color: #202124;
             line-height: 1.7;
             margin: 0;
@@ -206,7 +206,7 @@ if ($edit_mode) {
         .question-label {
             font-size: 1.25rem;
             font-weight: 500;
-            color: #111827;
+            color: #202124;
             margin-bottom: 1.5rem;
             display: block;
             word-wrap: break-word;
@@ -383,7 +383,7 @@ if ($edit_mode) {
         }
         
         .rating-range-label {
-            font-size: 0.875rem;
+            font-size: 1rem;
             color: #70757a;
             margin-top: 2rem; /* Align horizontally with the radio buttons */
             white-space: nowrap;
@@ -423,7 +423,7 @@ if ($edit_mode) {
             text-align: center;
             margin-top: 2rem;
             padding: 1.5rem;
-            color: rgba(0, 0, 0, 0.9);
+            color: rgba(122, 116, 116, 0.9);
         }
         
         .footer-text {
