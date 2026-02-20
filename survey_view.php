@@ -33,8 +33,8 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
     foreach ($questions as $q) {
         $qId = $q['id'];
         $qType = $q['question_type'];
-        
-        if (in_array($qType, ['multiple_choice', 'checkbox'])) {
+
+        if (in_array($qType, ['multiple_choice', 'checkbox', 'dropdown'])) {
             $options = json_decode($q['options'], true) ?? [];
             $chartData[$qId] = [
                 'type' => $qType,
@@ -42,7 +42,17 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
                 'data' => array_fill_keys($options, 0),
                 'total' => 0
             ];
-        } elseif (in_array($qType, ['short_answer', 'paragraph'])) {
+        }
+        elseif ($qType === 'rating') {
+            $options = ["1", "2", "3", "4", "5"];
+            $chartData[$qId] = [
+                'type' => 'rating',
+                'labels' => $options,
+                'data' => array_fill_keys($options, 0),
+                'total' => 0
+            ];
+        }
+        elseif (in_array($qType, ['short_answer', 'paragraph'])) {
             $textResponses[$qId] = [];
         }
     }
@@ -70,15 +80,16 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
                             $chartData[$qId]['total']++;
                         }
                     }
-                } else {
-                    // Multiple Choice
+                }
+                else {
+                    // Multiple Choice / Dropdown / Rating
                     $ansText = trim($ansText);
                     if (isset($chartData[$qId]['data'][$ansText])) {
                         $chartData[$qId]['data'][$ansText]++;
                         $chartData[$qId]['total']++;
                     }
                 }
-            } 
+            }
             // Handle Text Data
             elseif (isset($textResponses[$qId])) {
                 if (!empty($ansText)) {
@@ -93,15 +104,16 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
 <div class="mb-4">
     <div style="display: flex; justify-content: space-between; align-items: start;">
         <div>
-            <a href="dashboard.php" style="color: var(--text-muted); text-decoration: none; font-size: 0.875rem;"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+            <a href="dashboard.php" style="color: var(--text-muted); text-decoration: none; font-size: 0.875rem;"><i class="fa-solid fa-arrow-left"></i> Back to Dashboard</a>
             <h1 style="margin-top: 0.5rem;"><?php echo htmlspecialchars($survey['title']); ?> <small style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">Results</small></h1>
         </div>
         
         <div>
             <a href="view_survey.php?id=<?php echo $id; ?>" target="_blank" class="btn" style="background: white; border: 1px solid var(--border); color: var(--text-main); margin-right: 0.5rem;">View Survey</a>
             <?php if ($survey['type'] === 'custom' && count($responses) > 0): ?>
-                <button onclick="openExportModal()" class="btn btn-primary"><i class="fas fa-download" style="margin-right: 0.5rem;"></i> Export Data</button>
-            <?php endif; ?>
+                <button onclick="openExportModal()" class="btn btn-primary"><i class="fa-solid fa-download" style="margin-right: 0.5rem;"></i> Export Data</button>
+            <?php
+endif; ?>
         </div>
     </div>
 </div>
@@ -112,9 +124,10 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
     <?php if ($survey['type'] === 'embed'): ?>
         <?php if (count($responses) === 0): ?>
             <p style="color: var(--text-muted);">No responses recorded yet.</p>
-        <?php else: ?>
+        <?php
+    else: ?>
             <p style="color: var(--text-muted); margin-bottom: 1rem;">
-                <i class="fas fa-info-circle"></i> Note: Answers are stored in the external form provider. This list only shows users who confirmed their submission here.
+                <i class="fa-solid fa-circle-info"></i> Note: Answers are stored in the external form provider. This list only shows users who confirmed their submission here.
             </p>
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse; text-align: left;">
@@ -138,14 +151,18 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
                                     <?php echo htmlspecialchars(substr($resp['token'], 0, 8)) . '...'; ?>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php
+        endforeach; ?>
                     </tbody>
                 </table>
             </div>
-        <?php endif; ?>
-    <?php elseif (count($responses) === 0): ?>
+        <?php
+    endif; ?>
+    <?php
+elseif (count($responses) === 0): ?>
         <p style="color: var(--text-muted);">No responses yet.</p>
-    <?php else: ?>
+    <?php
+else: ?>
         
         <!-- Tab Navigation -->
         <div class="tabs-nav">
@@ -159,34 +176,42 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
                 
                 <?php foreach ($questions as $q): ?>
                     <div class="card-google">
-                        <h4 class="question-text-google"><?php echo htmlspecialchars($q['question_text']); ?></h4>
+                        <h4 class="question-text"><?php echo htmlspecialchars($q['question_text']); ?></h4>
                         
                         <?php if (isset($chartData[$q['id']])): ?>
                             <div style="max-height: 400px; display: flex; justify-content: center;">
                                 <canvas id="chart_<?php echo $q['id']; ?>" style="max-width: 100%; max-height: 400px;"></canvas>
                             </div>
-                        <?php elseif (isset($textResponses[$q['id']])): ?>
+                        <?php
+        elseif (isset($textResponses[$q['id']])): ?>
                             <div style="max-height: 300px; overflow-y: auto; background: #f8fafc; border-radius: var(--radius); border: 1px solid var(--border); padding: 0.5rem;">
                                 <?php if (empty($textResponses[$q['id']])): ?>
                                     <div style="padding: 1rem; color: var(--text-muted); font-style: italic;">No responses yet.</div>
-                                <?php else: ?>
+                                <?php
+            else: ?>
                                     <?php foreach ($textResponses[$q['id']] as $text): ?>
                                         <div style="padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: white;">
                                             <?php echo htmlspecialchars($text); ?>
                                         </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                    <?php
+                endforeach; ?>
+                                <?php
+            endif; ?>
                             </div>
-                        <?php endif; ?>
+                        <?php
+        endif; ?>
                         
                         <div style="margin-top: 1rem; text-align: right; color: var(--text-muted); font-size: 0.8rem;">
-                            <?php 
-                                if (isset($chartData[$q['id']])) echo $chartData[$q['id']]['total'] . ' responses';
-                                elseif (isset($textResponses[$q['id']])) echo count($textResponses[$q['id']]) . ' responses'; 
-                            ?>
+                            <?php
+        if (isset($chartData[$q['id']]))
+            echo $chartData[$q['id']]['total'] . ' responses';
+        elseif (isset($textResponses[$q['id']]))
+            echo count($textResponses[$q['id']]) . ' responses';
+?>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                <?php
+    endforeach; ?>
             </div>
         </div>
 
@@ -199,7 +224,8 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
                             <th style="padding: 1rem; white-space: nowrap; font-weight: 600; color: var(--text-muted);">Timestamp</th>
                             <?php foreach ($questions as $q): ?>
                                 <th style="padding: 1rem; min-width: 200px; font-weight: 600; color: var(--text-muted);"><?php echo htmlspecialchars($q['question_text']); ?></th>
-                            <?php endforeach; ?>
+                            <?php
+    endforeach; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -208,25 +234,29 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
                                 <td style="padding: 1rem; color: var(--text-muted); white-space: nowrap;">
                                     <?php echo date('M j, Y H:i', strtotime($resp['submitted_at'])); ?>
                                 </td>
-                                <?php 
-                                $stmtA = $pdo->prepare("SELECT question_id, answer_text FROM answers WHERE response_id = ?");
-                                $stmtA->execute([$resp['id']]);
-                                $answers = $stmtA->fetchAll(PDO::FETCH_KEY_PAIR);
-                                ?>
+                                <?php
+        $stmtA = $pdo->prepare("SELECT question_id, answer_text FROM answers WHERE response_id = ?");
+        $stmtA->execute([$resp['id']]);
+        $answers = $stmtA->fetchAll(PDO::FETCH_KEY_PAIR);
+?>
                                 
                                 <?php foreach ($questions as $q): ?>
                                     <td style="padding: 1rem; vertical-align: top;">
                                         <?php echo isset($answers[$q['id']]) ? htmlspecialchars($answers[$q['id']]) : '-'; ?>
                                     </td>
-                                <?php endforeach; ?>
+                                <?php
+        endforeach; ?>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php
+    endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-    <?php endif; ?>
+    <?php
+endif; ?>
 </div>
+
 
 
 <!-- Export Modal -->
@@ -237,14 +267,14 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
         <div style="display: flex; flex-direction: column; gap: 1.5rem;">
             <!-- Option 1: Download All -->
             <div style="border: 1px solid var(--border); padding: 1rem; border-radius: 8px;">
-                <h4 style="margin-bottom: 0.5rem;"><i class="fas fa-file-csv" style="color: var(--primary);"></i> Download Full Data</h4>
+                <h4 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-file-csv" style="color: var(--primary);"></i> Download Full Data</h4>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Download all responses as a new CSV file.</p>
                 <a href="actions/export.php?id=<?php echo $id; ?>" class="btn btn-primary" onclick="closeExportModal()" style="display: inline-block;">Download All</a>
             </div>
 
             <!-- Option 2: Merge -->
             <div style="border: 1px solid var(--border); padding: 1rem; border-radius: 8px;">
-                <h4 style="margin-bottom: 0.5rem;"><i class="fas fa-layer-group" style="color: var(--success);"></i> Update Existing File</h4>
+                <h4 style="margin-bottom: 0.5rem;"><i class="fa-solid fa-layer-group" style="color: var(--success);"></i> Update Existing File</h4>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">Upload your last export file. We will append only new responses to it.</p>
                 
                 <form action="actions/export_merge.php" method="POST" enctype="multipart/form-data">
@@ -262,6 +292,7 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
         </div>
     </div>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -313,9 +344,9 @@ if ($survey['type'] === 'custom' && count($responses) > 0) {
             let chartType = 'pie';
             let backgroundColor = colors;
             
-            if (data.type === 'checkbox') {
+            if (data.type === 'checkbox' || data.type === 'rating') {
                 chartType = 'bar';
-                backgroundColor = '#4285F4'; 
+                backgroundColor = data.type === 'rating' ? '#AB47BC' : '#4285F4'; // Purple for rating, Blue for checkbox
             } else {
                 chartType = 'pie'; 
             }

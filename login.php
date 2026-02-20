@@ -1,5 +1,8 @@
 <?php
 // login.php
+// Set session lifetime to 1 day (86400 seconds)
+ini_set('session.gc_maxlifetime', 86400);
+session_set_cookie_params(['lifetime' => 86400]);
 session_start();
 require 'config.php';
 require 'functions.php';
@@ -12,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($username) || empty($password)) {
         $error = "Please fill all fields.";
-    } else {
+    }
+    else {
         $stmt = $pdo->prepare("SELECT id, password FROM users WHERE username = ?");
         $stmt->execute([$username]);
         $user = $stmt->fetch();
@@ -21,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $username;
             redirect('dashboard.php');
-        } else {
+        }
+        else {
             $error = "Invalid username or password.";
         }
     }
@@ -56,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div style="background: #fee2e2; color: #b91c1c; padding: 0.75rem; border-radius: 0.5rem; margin-bottom: 1rem; text-align: center;">
                 <?php echo $error; ?>
             </div>
-        <?php endif; ?>
+        <?php
+endif; ?>
 
         <form method="POST" action="">
             <div class="form-group">

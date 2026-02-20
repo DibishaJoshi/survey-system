@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = clean_input($_POST['description']);
     $type = clean_input($_POST['type']);
     $embed_code = isset($_POST['embed_code']) ? $_POST['embed_code'] : null;
-    
+
     $limit_one = isset($_POST['limit_one']) ? 1 : 0;
     $allow_edit = isset($_POST['allow_edit']) ? 1 : 0;
 
@@ -25,17 +25,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($type === 'custom' && isset($_POST['questions'])) {
             $stmtQ = $pdo->prepare("INSERT INTO questions (survey_id, question_text, question_type, options, order_index, is_required) VALUES (?, ?, ?, ?, ?, ?)");
-            
+
             $order = 0;
             foreach ($_POST['questions'] as $q) {
                 $qText = clean_input($q['text']);
                 $qType = clean_input($q['type']);
-                
+
                 $options = null;
-                if (($qType === 'multiple_choice' || $qType === 'checkbox') && isset($q['options'])) {
-                    // Convert comma separated string to JSON array
-                    $opts = array_map('trim', explode(',', $q['options']));
-                    $options = json_encode($opts);
+                if (isset($q['options']) && ($qType === 'multiple_choice' || $qType === 'checkbox' || $qType === 'dropdown')) {
+                    $rawOptions = $q['options'];
+                    // Try newline first (modern UI)
+                    $opts = preg_split('/\r\n|\r|\n/', $rawOptions);
+                    $opts = array_filter(array_map('trim', $opts));
+
+                    // If only one entry and it contains a comma, it's likely the legacy format
+                    if (count($opts) <= 1 && !empty($rawOptions) && strpos($rawOptions, ',') !== false) {
+                        $opts = array_filter(array_map('trim', explode(',', $rawOptions)));
+                    }
+
+                    $options = json_encode(array_values($opts));
                 }
 
                 $isRequired = isset($q['required']) ? 1 : 0;
@@ -48,7 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->commit();
         redirect('../dashboard.php');
 
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
         $pdo->rollBack();
         die("Error saving survey: " . $e->getMessage());
     }

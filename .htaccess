@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /survery_system/
+RewriteBase /survey-system/
 Options -MultiViews
 
 # New Route: /form/{hash} -> view_survey.php?hash={hash}

@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = clean_input($_POST['description']);
     $type = clean_input($_POST['type']);
     $embed_code = isset($_POST['embed_code']) ? $_POST['embed_code'] : null;
-    
+
     $limit_one = isset($_POST['limit_one']) ? 1 : 0;
     $allow_edit = isset($_POST['allow_edit']) ? 1 : 0;
 
@@ -41,9 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $qType = clean_input($q['type']);
                     $options = null;
 
-                    if (($qType === 'multiple_choice' || $qType === 'checkbox') && isset($q['options'])) {
-                        $opts = array_map('trim', explode(',', $q['options']));
-                        $options = json_encode($opts);
+                    if (isset($q['options']) && ($qType === 'multiple_choice' || $qType === 'checkbox' || $qType === 'dropdown')) {
+                        $rawOptions = $q['options'];
+                        // Try newline first (modern UI)
+                        $opts = preg_split('/\r\n|\r|\n/', $rawOptions);
+                        $opts = array_filter(array_map('trim', $opts));
+
+                        // If only one entry and it contains a comma, it's likely the legacy format
+                        if (count($opts) <= 1 && !empty($rawOptions) && strpos($rawOptions, ',') !== false) {
+                            $opts = array_filter(array_map('trim', explode(',', $rawOptions)));
+                        }
+
+                        $options = json_encode(array_values($opts));
                     }
 
                     $isRequired = isset($q['required']) ? 1 : 0;
@@ -52,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         // Update existing
                         $stmtUpd->execute([$qText, $qType, $options, $order, $isRequired, $q['id']]);
                         $posted_ids[] = $q['id'];
-                    } else {
+                    }
+                    else {
                         // Insert new
                         $stmtInst->execute([$survey_id, $qText, $qType, $options, $order, $isRequired]);
                     }
@@ -72,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->commit();
         redirect('../dashboard.php');
 
-    } catch (Exception $e) {
+    }
+    catch (Exception $e) {
         $pdo->rollBack();
         die("Error updating survey: " . $e->getMessage());
     }

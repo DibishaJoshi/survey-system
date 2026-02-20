@@ -20,37 +20,44 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 1.25rem;
+    /* High-impact base size (~20px) */
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1500px;
+    /* Expansive width */
     margin: 0 auto;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
     padding-top: 0rem;
 }
 
 .card {
     background: var(--surface);
-    border-radius: var(--radius);
+    border-radius: 0.75rem;
+    /* Standard rounded */
     box-shadow: var(--shadow-sm);
-    padding: 2rem;
+    padding: 2.25rem;
+    /* Standard large padding */
     border: 1px solid var(--border);
+    margin-bottom: 1.5rem;
 }
 
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-    border-radius: var(--radius);
-    transition: all 0.2s;
+    padding: 0.8rem 1.6rem;
+    font-weight: 600;
+    border-radius: 0.625rem;
+    transition: all 0.2s ease;
     cursor: pointer;
     border: none;
     text-decoration: none;
-    font-size: 0.875rem;
+    font-size: 1.25rem;
+    /* Magnified button text */
 }
 
 .btn-primary {
@@ -82,12 +89,13 @@ body {
 
 .form-control {
     width: 100%;
-    padding: 0.625rem;
+    padding: 0.75rem;
+    /* Increased padding */
     border-radius: var(--radius);
     border: 1px solid var(--border);
     background-color: var(--surface);
     color: var(--text-main);
-    font-size: 0.875rem;
+    font-size: 1.125rem;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -97,14 +105,21 @@ body {
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-weight: 600;
     letter-spacing: -0.025em;
     margin-top: 0;
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.5rem; }
+h1 {
+    font-size: 2.25rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
 
 /* Dashboard Grid */
 .grid {
@@ -148,32 +163,41 @@ h2 { font-size: 1.5rem; }
 .navbar {
     background: white;
     border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
-    margin-bottom: 2rem;
+    padding: 1.25rem 0;
+    /* Taller navbar */
+    margin-bottom: 0;
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1500px;
+    /* Match global container */
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .nav-brand {
-    font-size: 1.25rem;
+    font-size: 2rem;
+    /* Magnified brand */
     font-weight: 700;
     color: var(--primary);
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
 .nav-links a {
     color: var(--text-muted);
     text-decoration: none;
-    margin-left: 1.5rem;
-    font-weight: 500;
-    transition: color 0.2s;
+    margin-left: 2rem;
+    /* More spacing */
+    font-weight: 600;
+    font-size: 1.25rem;
+    /* Magnified links */
+    transition: all 0.2s;
 }
 
 .nav-links a:hover {
@@ -192,8 +216,15 @@ h2 { font-size: 1.5rem; }
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .remove-question-btn {
@@ -220,6 +251,7 @@ h2 { font-size: 1.5rem; }
     border: 0;
     max-width: 100%;
 }
+
 /* Google Forms Style Enhancements */
 
 /* Tabs */
@@ -262,8 +294,15 @@ h2 { font-size: 1.5rem; }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(5px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Google-like Cards */
@@ -278,7 +317,7 @@ h2 { font-size: 1.5rem; }
 }
 
 .card-google:hover {
-    box-shadow: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+    box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
 }
 
 .card-google-top {
@@ -328,9 +367,11 @@ h2 { font-size: 1.5rem; }
     font-weight: 600;
     margin-bottom: 0.25rem;
 }
+
 /* Dashboard Styles */
 .dashboard-header {
-    background: linear-gradient(to bottom, #f8fafc, #edf2f7); /* Soft gradient */
+    background: linear-gradient(to bottom, #f8fafc, #edf2f7);
+    /* Soft gradient */
     padding: 1rem 0 2rem;
     padding-top: 0rem;
     margin-bottom: 2rem;
@@ -339,7 +380,8 @@ h2 { font-size: 1.5rem; }
 
 .template-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Slightly wider */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    /* Slightly wider */
     gap: 1.5rem;
 }
 
@@ -349,12 +391,14 @@ h2 { font-size: 1.5rem; }
 }
 
 .template-item:hover {
-    transform: translateY(-4px); /* Higher lift */
+    transform: translateY(-4px);
+    /* Higher lift */
 }
 
 .template-preview {
     background: white;
-    border: none; /* Removed border */
+    border: none;
+    /* Removed border */
     border-radius: 12px;
     height: 110px;
     display: flex;
@@ -363,7 +407,8 @@ h2 { font-size: 1.5rem; }
     margin-bottom: 0.75rem;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Shadow instead */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* Shadow instead */
     transition: box-shadow 0.2s;
 }
 
@@ -372,22 +417,48 @@ h2 { font-size: 1.5rem; }
 }
 
 /* Specific template colors/icons */
-.template-preview.blank { background: linear-gradient(135deg, white, #f1f5f9); }
-.template-preview.customer { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
-.template-preview.event { background: linear-gradient(135deg, #dcfce7, #86efac); }
-.template-preview.employee { background: linear-gradient(135deg, #f3e8ff, #d8b4fe); }
+.template-preview.blank {
+    background: linear-gradient(135deg, white, #f1f5f9);
+}
+
+.template-preview.customer {
+    background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+}
+
+.template-preview.event {
+    background: linear-gradient(135deg, #dcfce7, #86efac);
+}
+
+.template-preview.employee {
+    background: linear-gradient(135deg, #f3e8ff, #d8b4fe);
+}
 
 .template-preview i {
     font-size: 2.5rem;
-    color: rgba(255,255,255,0.8); /* White overlay hint */
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    color: rgba(255, 255, 255, 0.8);
+    /* White overlay hint */
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 /* Override icons for better visibility on color backgrounds */
-.template-preview.blank i { color: #cbd5e1; }
-.template-preview.customer i { color: #0284c7; opacity: 0.5; }
-.template-preview.event i { color: #16a34a; opacity: 0.5; }
-.template-preview.employee i { color: #9333ea; opacity: 0.5; }
+.template-preview.blank i {
+    color: #cbd5e1;
+}
+
+.template-preview.customer i {
+    color: #0284c7;
+    opacity: 0.5;
+}
+
+.template-preview.event i {
+    color: #16a34a;
+    opacity: 0.5;
+}
+
+.template-preview.employee i {
+    color: #9333ea;
+    opacity: 0.5;
+}
 
 .template-name {
     font-size: 0.9rem;
@@ -404,7 +475,8 @@ h2 { font-size: 1.5rem; }
 
 .form-card {
     background: white;
-    border: none; /* No border for cleaner look */
+    border: none;
+    /* No border for cleaner look */
     border-radius: 12px;
     transition: all 0.2s;
     overflow: hidden;
@@ -415,12 +487,14 @@ h2 { font-size: 1.5rem; }
 }
 
 .form-card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Deep shadow */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    /* Deep shadow */
     transform: translateY(-2px);
 }
 
 .form-preview {
-    height: 140px; /* Taller */
+    height: 140px;
+    /* Taller */
     background: #f8fafc;
     border-bottom: 1px solid #f1f5f9;
     display: flex;
@@ -454,7 +528,8 @@ h2 { font-size: 1.5rem; }
    For now, styling standard inputs more heavily. */
 
 input[name="search"] {
-    border-radius: 9999px !important; /* Pill shape */
+    border-radius: 9999px !important;
+    /* Pill shape */
     padding-left: 2.5rem !important;
     background: white !important;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -466,6 +541,7 @@ input[name="search"]:focus {
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
     border-color: var(--primary) !important;
 }
+
 /* Dropdown Menu */
 .dropdown {
     position: relative;
@@ -476,7 +552,8 @@ input[name="search"]:focus {
     display: none;
     position: absolute;
     right: 0;
-    bottom: 100%; /* Show above button to avoid overflow hidden issues if card is small? Actually no, let's keep standard but ensure z-index */
+    bottom: 100%;
+    /* Show above button to avoid overflow hidden issues if card is small? Actually no, let's keep standard but ensure z-index */
     background-color: white;
     min-width: 180px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -513,8 +590,10 @@ input[name="search"]:focus {
 
 /* Footer Actions Cleanup */
 .form-footer-actions {
-    margin-top: auto; /* Push to bottom */
-    padding: 0 1.25rem 1.25rem; /* Match info padding */
+    margin-top: auto;
+    /* Push to bottom */
+    padding: 0 1.25rem 1.25rem;
+    /* Match info padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -531,11 +610,13 @@ input[name="search"]:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px; /* Squarish rounded */
+    border-radius: 6px;
+    /* Squarish rounded */
     color: var(--text-muted);
     transition: all 0.2s;
     text-decoration: none;
-    border: none; /* Ensure button reset */
+    border: none;
+    /* Ensure button reset */
     background: transparent;
     cursor: pointer;
 }
@@ -551,26 +632,31 @@ input[name="search"]:focus {
 
 /* Respondent View (Modern Professional) */
 .respondent-body {
-    background-color: var(--bg-color); /* Use system background */
+    background-color: var(--bg-color);
+    /* Use system background */
     min-height: 100vh;
     padding-top: 2rem;
     padding-bottom: 4rem;
-    background-image: linear-gradient(to bottom, #eef2ff 0%, #f8fafc 100%); /* Subtle indigo tint */
+    background-image: linear-gradient(to bottom, #eef2ff 0%, #f8fafc 100%);
+    /* Subtle indigo tint */
 }
 
 .survey-container {
-    max-width: 720px; /* Slightly wider */
+    max-width: 720px;
+    /* Slightly wider */
     margin: 0 auto;
     padding: 0 1.5rem;
 }
 
 .survey-header-card {
     background: white;
-    border-radius: 12px; /* Softer radius */
+    border-radius: 12px;
+    /* Softer radius */
     border: none;
     padding: 32px;
     margin-bottom: 24px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Soft deep shadow */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    /* Soft deep shadow */
     position: relative;
     overflow: hidden;
 }
@@ -592,7 +678,8 @@ input[name="search"]:focus {
     line-height: tight;
     color: var(--text-main);
     margin-bottom: 1rem;
-    font-family: 'Inter', sans-serif; /* Back to system font */
+    font-family: 'Inter', sans-serif;
+    /* Back to system font */
 }
 
 .question-card {
@@ -626,10 +713,12 @@ input[name="search"]:focus {
 
 /* Modern Input Styling */
 .form-control-google {
-    border: 1px solid var(--border); /* Full border */
+    border: 1px solid var(--border);
+    /* Full border */
     background: white;
-    border-radius: 8px; /* Rounded */
-    padding: 12px 16px; 
+    border-radius: 8px;
+    /* Rounded */
+    padding: 12px 16px;
     width: 100%;
     font-size: 1rem;
     transition: all 0.2s;
@@ -640,7 +729,8 @@ input[name="search"]:focus {
 .form-control-google:focus {
     outline: none;
     border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1); /* Indigo ring */
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+    /* Indigo ring */
 }
 
 /* Radio/Checkbox custom styling */
@@ -674,38 +764,38 @@ input[name="search"]:focus {
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    
+
     /* Navigation Stack */
     .nav-container {
         flex-direction: column;
         gap: 1rem;
         padding: 0 1rem;
     }
-    
+
     .nav-links {
         width: 100%;
         display: flex;
         justify-content: center;
         gap: 1.5rem;
     }
-    
+
     .nav-links a {
         margin-left: 0;
     }
 
     /* Dashboard Header Stack (Search/Sort) */
-    .container > div[style*="justify-content: space-between"] {
+    .container>div[style*="justify-content: space-between"] {
         flex-direction: column;
         align-items: stretch !important;
         gap: 1rem;
     }
-    
+
     /* Ensure search input takes full width on mobile if stacked */
     input[name="search"] {
         width: 100% !important;
         box-sizing: border-box;
     }
-    
+
     /* Make the Form Actions (View/edit/etc) easier to tap */
     .form-footer-actions {
         flex-wrap: wrap;
@@ -722,18 +812,18 @@ input[name="search"]:focus {
 
     /* Survey View Results Header */
     /* The header with title and Export button */
-    .mb-4 > div[style*="display: flex; justify-content: space-between"] {
+    .mb-4>div[style*="display: flex; justify-content: space-between"] {
         flex-direction: column;
         gap: 1rem;
     }
-    
-    .mb-4 > div > div:last-child {
+
+    .mb-4>div>div:last-child {
         width: 100%;
         display: flex;
         gap: 0.5rem;
     }
-    
-    .mb-4 > div > div:last-child .btn {
+
+    .mb-4>div>div:last-child .btn {
         flex: 1;
     }
 
@@ -741,11 +831,11 @@ input[name="search"]:focus {
     .survey-container {
         padding: 0 1rem;
     }
-    
+
     .survey-header-card {
         padding: 1.5rem;
     }
-    
+
     .survey-title-large {
         font-size: 1.5rem;
     }

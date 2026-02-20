@@ -14,13 +14,13 @@ function toggleSurveyType() {
     if (type === 'custom') {
         customBuilder.style.display = 'block';
         embedBuilder.style.display = 'none';
-        
+
         customInputs.forEach(el => el.disabled = false);
         embedInputs.forEach(el => el.disabled = true);
     } else {
         customBuilder.style.display = 'none';
         embedBuilder.style.display = 'block';
-        
+
         customInputs.forEach(el => el.disabled = true);
         embedInputs.forEach(el => el.disabled = false);
     }
@@ -29,7 +29,7 @@ function toggleSurveyType() {
 // Initialize with one question ONLY if empty (Create Mode)
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('questionsContainer');
-    if(container && container.children.length === 0) {
+    if (container && container.children.length === 0) {
         addQuestion();
     }
     // Initialize correct state (disabling/enabling inputs)
@@ -39,12 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function addQuestion() {
     const container = document.getElementById('questionsContainer');
     const template = document.getElementById('questionTemplate').innerHTML;
-    
+
     const newHtml = template.replace(/{index}/g, questionCount);
-    
+
     const div = document.createElement('div');
     div.innerHTML = newHtml;
-    
+
     // Check if we are in embed mode, if so, disable these new inputs
     const type = document.querySelector('input[name="type"]:checked');
     if (type && type.value === 'embed') {
@@ -53,7 +53,7 @@ function addQuestion() {
     }
 
     container.appendChild(div.firstElementChild);
-    
+
     questionCount++;
 }
 
@@ -106,6 +106,38 @@ const templates = {
             { text: 'I have the resources I need to do my job.', type: 'multiple_choice', options: 'Yes, No' },
             { text: 'What motivates you the most?', type: 'short_answer', options: '' }
         ]
+    },
+    'contact_info': {
+        title: 'Contact Information',
+        description: 'Please provide your contact details so we can get in touch.',
+        questions: [
+            { text: 'Full Name', type: 'short_answer', options: '' },
+            { text: 'Email Address', type: 'short_answer', options: '' },
+            { text: 'Phone Number', type: 'short_answer', options: '' },
+            { text: 'Best time to reach you?', type: 'multiple_choice', options: 'Morning, Afternoon, Evening' },
+            { text: 'Comments/Inquiries', type: 'paragraph', options: '' }
+        ]
+    },
+    'job_application': {
+        title: 'Job Application Form',
+        description: 'Apply for your dream position by filling out the details below.',
+        questions: [
+            { text: 'Position Applied For', type: 'dropdown', options: 'Software Engineer, Designer, Product Manager, Marketing Specialist' },
+            { text: 'Years of Professional Experience', type: 'multiple_choice', options: '0-1, 1-3, 3-5, 5+' },
+            { text: 'Technical Skills', type: 'checkbox', options: 'JavaScript, PHP, Python, React, SQL, AWS' },
+            { text: 'Link to Portfolio/LinkedIn', type: 'short_answer', options: '' },
+            { text: 'Why are you interested in this role?', type: 'paragraph', options: '' }
+        ]
+    },
+    'general_quiz': {
+        title: 'General Knowledge Quiz',
+        description: 'Test your knowledge with these fun questions!',
+        questions: [
+            { text: 'What is the capital of France?', type: 'multiple_choice', options: 'London, Berlin, Madrid, Paris' },
+            { text: 'Which planet is known as the Red Planet?', type: 'multiple_choice', options: 'Venus, Mars, Jupiter, Saturn' },
+            { text: 'Select all the primary colors:', type: 'checkbox', options: 'Red, Green, Blue, Yellow, Orange' },
+            { text: 'Who wrote "Romeo and Juliet"?', type: 'short_answer', options: '' }
+        ]
     }
 };
 
@@ -115,12 +147,12 @@ function applyTemplate(type) {
     }
 
     const data = templates[type];
-    
+
     document.getElementById('title').value = data.title;
     document.getElementById('description').value = data.description;
-    
+
     document.getElementById('questionsContainer').innerHTML = '';
-    
+
     if (data.questions.length === 0) {
         addQuestion();
     } else {
@@ -128,7 +160,7 @@ function applyTemplate(type) {
             addQuestion();
             const items = document.querySelectorAll('.question-item');
             const lastItem = items[items.length - 1];
-            
+
             lastItem.querySelector('input[name*="[text]"]').value = q.text;
             const typeSelect = lastItem.querySelector('select[name*="[type]"]');
             typeSelect.value = q.type;

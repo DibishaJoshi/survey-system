@@ -1,6 +1,8 @@
 <nav class="navbar">
     <div class="nav-container">
-        <a href="dashboard.php" class="nav-brand">SurveyAdmin</a>
+        <a href="dashboard.php" class="nav-brand">
+            <span>SurveyAdmin</span>
+        </a>
         <div class="nav-links">
             <a href="dashboard.php">Dashboard</a>
             <a href="create_survey.php">Create Survey</a>
